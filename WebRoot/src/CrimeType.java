@@ -1,3 +1,6 @@
+import java.util.Map;
+import java.util.HashMap;
+
 public enum CrimeType {
     AGG_ASSAULT("AGG ASSAULT", "Aggravated Assault"),
     AUTO_THEFT("AUTO THEFT", "Auto Theft"),
@@ -11,7 +14,7 @@ public enum CrimeType {
     ROBBERY_PEDESTRIAN("ROBBERY-PEDESTRIAN", "Pedestrian Robbery"),
     ROBBERY_RESIDENCE("ROBBERY-RESIDENCE", "Residential Robbery");
 
-    private static Map<String, CrimeType> dataBaseLookupMap = new HashMap<String, CrimeType>;
+    private static Map<String, CrimeType> dataBaseLookupMap = new HashMap<String, CrimeType>();
 
     public static CrimeType getCrimeTypeFromKey(String dataBaseKey) {
         return dataBaseLookupMap.get(dataBaseKey);
@@ -20,10 +23,14 @@ public enum CrimeType {
     private String dataBaseKey;
     private String commonName;
 
-    public CrimeType(String dataBaseKey, String commonName) {
+    CrimeType(String dataBaseKey, String commonName) {
         this.dataBaseKey = dataBaseKey;
         this.commonName = commonName;
         this.dataBaseLookupMap.put(dataBaseKey, this);
+    }
+
+    public String getDataBaseKey() {
+        return dataBaseKey;
     }
 
     public String getCommonName() {
