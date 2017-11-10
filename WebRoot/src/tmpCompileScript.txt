@@ -1,1 +1,0 @@
-javac -cp ".:../WEB-INF/lib/aws-java-sdk-1.11.213.jar" *.java
