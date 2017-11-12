@@ -8,7 +8,7 @@
     <br />
     <%
         List<Integer> lat = (List<String>)request.getAttribute("lat");
-        List<Integer> long = (List<String>)request.getAttribute("long");
+        List<Integer> lon = (List<String>)request.getAttribute("lon");
     %>
   </body>
 </html>
