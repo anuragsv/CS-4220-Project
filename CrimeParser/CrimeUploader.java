@@ -5,6 +5,9 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.time.format.DateTimeFormatter;
 
 public class CrimeUploader {
     public static String CRIME_TABLE_NAME = "CrimeReports";
@@ -14,14 +17,14 @@ public class CrimeUploader {
 
         for (Crime crime : crimes) {
             HashMap<String,AttributeValue> crime_data_values = new HashMap<String,AttributeValue>();
-            item_values.put("CrimeType", new AttributeValue(crime.getCrimeType.getDataBaseKey()));
-            item_values.put("ReportNumber", new AttributeValue(crime.getReportNumber()));
-            item_values.put("ReportDate", new AttributeValue(crime.getReportDate().format(DateTimeFormatter.BASIC_ISO_DATE)));
-            item_values.put("Address", new AttributeValue(crime.getAddress()));
-            item_values.put("Neighborhood", new AttributeValue(crime.getNeighborhood()));
-            item_values.put("City", new AttributeValue(crime.getCity()));
-            item_values.put("Latitude", new AttributeValue(crime.getLatitude()));
-            item_values.put("Longitude", new AttributeValue(crime.getLongitude()));
+            crime_data_values.put("CrimeType", new AttributeValue(crime.getCrimeType().getDataBaseKey()));
+            crime_data_values.put("ReportNumber", new AttributeValue().withN(Integer.toString(crime.getReportNumber())));
+            crime_data_values.put("ReportDate", new AttributeValue(crime.getReportDate().format(DateTimeFormatter.BASIC_ISO_DATE)));
+            crime_data_values.put("Address", new AttributeValue(crime.getAddress()));
+            crime_data_values.put("Neighborhood", new AttributeValue(crime.getNeighborhood()));
+            crime_data_values.put("City", new AttributeValue(crime.getCity()));
+            crime_data_values.put("Latitude", new AttributeValue().withN(Double.toString(crime.getLatitude())));
+            crime_data_values.put("Longitude", new AttributeValue().withN(Double.toString(crime.getLongitude())));
 
             try {
                 ddb.putItem(CRIME_TABLE_NAME, crime_data_values);

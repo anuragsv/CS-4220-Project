@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public final class CSVParser {
 
@@ -15,15 +17,15 @@ public final class CSVParser {
             String[] data = line.split(",");
             CrimeType crimeType = CrimeType.getCrimeTypeFromKey(data[0]);
             int reportNumber = Integer.parseInt(data[1]);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("m/d/y");
-            LocalDate date = LocalDate.parse(data[2], dateFormat);
+            //SimpleDateFormat dateFormat = new SimpleDateFormat("m/d/y");
+            LocalDate date = LocalDate.parse(data[2], DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.US));
             String address = data[3];
             String neighborhood = data[5];
             double latitude = Double.parseDouble(data[7]);
             double longitude = Double.parseDouble(data[8]);
             return new Crime(crimeType, reportNumber, date, address, city, neighborhood, latitude, longitude);
         } catch (Exception e) {
-            throw ParseException("Application failed to parse line: " + line + " due to error " + e);
+            throw new ParseException("Application failed to parse line: " + line + " due to error " + e, 0);
         }
     }
 

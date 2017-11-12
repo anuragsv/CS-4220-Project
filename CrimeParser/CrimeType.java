@@ -17,6 +17,11 @@ public enum CrimeType {
     private static Map<String, CrimeType> dataBaseLookupMap = new HashMap<String, CrimeType>();
 
     public static CrimeType getCrimeTypeFromKey(String dataBaseKey) {
+        if (dataBaseLookupMap.size() != CrimeType.values().length) {
+            for (CrimeType type : CrimeType.values()) {
+                dataBaseLookupMap.put(type.dataBaseKey, type);
+            }
+        }
         return dataBaseLookupMap.get(dataBaseKey);
     }
 
@@ -26,7 +31,6 @@ public enum CrimeType {
     CrimeType(String dataBaseKey, String commonName) {
         this.dataBaseKey = dataBaseKey;
         this.commonName = commonName;
-        this.dataBaseLookupMap.put(dataBaseKey, this);
     }
 
     public String getDataBaseKey() {
