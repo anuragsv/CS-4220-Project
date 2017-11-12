@@ -1,8 +1,14 @@
-<%=
-    import com.amazonaws.AmazonServiceException;
-    import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-    import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-    import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-    import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
-
-%>
+<%@ page import="java.util.List" %>
+<html>
+  <head>
+    <title>Paradisum - Real Estate Crime Mapper</title>
+  </head>
+  <body>
+    <h1>Hello From HTML</h1>
+    <br />
+    <%
+        List<Integer> lat = (List<String>)request.getAttribute("lat");
+        List<Integer> long = (List<String>)request.getAttribute("long");
+    %>
+  </body>
+</html>
