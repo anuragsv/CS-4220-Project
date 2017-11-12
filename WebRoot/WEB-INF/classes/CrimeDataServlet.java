@@ -3,6 +3,8 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
+import com.amazonaws.services.dynamodbv2.model.ScanRequest;
+import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
@@ -51,14 +53,18 @@ public class CrimeDataServlet extends HttpServlet {
         System.out.println(lon);
         return;
 
-        request.setAttribute("lat", lat);
+       /* request.setAttribute("lat", lat);
         request.setAttribute("lon", lon);
         String nextJSP = "/showProperty.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        dispatcher.forward(request,response);
+        dispatcher.forward(request,response);*/
     }
 
     public static void main(String args[]) {
-        new CrimeDataServlet.doGet(null, null);
+        try {
+            new CrimeDataServlet().doGet(null, null);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
