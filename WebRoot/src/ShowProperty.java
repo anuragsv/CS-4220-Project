@@ -36,37 +36,26 @@ public class ShowProperty extends HttpServlet {
         expressionAttributeValues.put(":minLon", new AttributeValue().withN(Double.toString(minLon)));
 
         ScanRequest scanRequest = new ScanRequest()
-            .withTableName(CRIME_TABLE_NAME);
-            .withFilterExpression("Latitude < :maxLat")
-            .withFilterExpression("Latitude > :minLat")
-            .withFilterExpression("Longitude < :maxLon")
-            .withFilterExpression("Longitude > :minLon")
-            .withProjectionExpression("Latitude")
-            .withProjectionExpression("Longitude")
+            .withTableName(CRIME_TABLE_NAME)
+            .withFilterExpression("Latitude <= :maxLat AND Latitude >= :minLat AND Longitude <= :maxLon AND Longitude >= :minLon")
+            .withProjectionExpression("Latitude, Longitude")
             .withExpressionAttributeValues(expressionAttributeValues);
 
         List<Double> lat = new ArrayList<Double>();
         List<Double> lon = new ArrayList<Double>();
-        //lat.add(5.0);
-        //lon.add(9.0);
 
         ScanResult result = ddb.scan(scanRequest);
-        out.println(result);
-        if (true) return;
         for (Map<String, AttributeValue> item : result.getItems()) {
             lat.add(Double.parseDouble(item.get("Latitude").getN()));
             lon.add(Double.parseDouble(item.get("Longitude").getN()));
         }
 
-        System.out.println(lat);
-        System.out.println(lon);
-        return;
 
-       /* request.setAttribute("lat", lat);
+       request.setAttribute("lat", lat);
         request.setAttribute("lon", lon);
         String nextJSP = "/WEB-INF/showProperty.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        dispatcher.forward(request,response);*/
+        dispatcher.forward(request,response);
     }
 
     public static void main(String args[]) throws ServletException, IOException {
