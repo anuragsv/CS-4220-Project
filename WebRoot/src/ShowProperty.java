@@ -28,10 +28,8 @@ public class ShowProperty extends HttpServlet {
         //PrintWriter out = response.getWriter();
 
         final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
-        System.out.println(ddb.listTables().getTableNames());
-        if (true) return;
 
-        /*Map<String, AttributeValue> expressionAttributeValues = new HashMap<String, AttributeValue>();
+        Map<String, AttributeValue> expressionAttributeValues = new HashMap<String, AttributeValue>();
         expressionAttributeValues.put(":maxLat", new AttributeValue().withN(Double.toString(maxLat)));
         expressionAttributeValues.put(":minLat", new AttributeValue().withN(Double.toString(minLat)));
         expressionAttributeValues.put(":maxLon", new AttributeValue().withN(Double.toString(maxLon)));
@@ -39,13 +37,13 @@ public class ShowProperty extends HttpServlet {
 
         ScanRequest scanRequest = new ScanRequest()
             .withTableName(CRIME_TABLE_NAME);
-            //.withFilterExpression("Latitude < :maxLat")
-            //.withFilterExpression("Latitude > :minLat")
-            //.withFilterExpression("Longitude < :maxLon")
-            //.withFilterExpression("Longitude > :minLon")
-            //.withProjectionExpression("Latitude")
-            //.withProjectionExpression("Longitude")
-            //.withExpressionAttributeValues(expressionAttributeValues);
+            .withFilterExpression("Latitude < :maxLat")
+            .withFilterExpression("Latitude > :minLat")
+            .withFilterExpression("Longitude < :maxLon")
+            .withFilterExpression("Longitude > :minLon")
+            .withProjectionExpression("Latitude")
+            .withProjectionExpression("Longitude")
+            .withExpressionAttributeValues(expressionAttributeValues);
 
         List<Double> lat = new ArrayList<Double>();
         List<Double> lon = new ArrayList<Double>();
@@ -60,9 +58,9 @@ public class ShowProperty extends HttpServlet {
             lon.add(Double.parseDouble(item.get("Longitude").getN()));
         }
 
-        // System.out.println(lat);
-        // System.out.println(lon);
-        // return;
+        System.out.println(lat);
+        System.out.println(lon);
+        return;
 
        /* request.setAttribute("lat", lat);
         request.setAttribute("lon", lon);
