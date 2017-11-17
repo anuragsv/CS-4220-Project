@@ -64,7 +64,7 @@ public class ShowProperty extends HttpServlet {
         // System.out.println(lon);
         // return;
 
-        request.setAttribute("lat", lat);
+       /* request.setAttribute("lat", lat);
         request.setAttribute("lon", lon);
         String nextJSP = "/WEB-INF/showProperty.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
