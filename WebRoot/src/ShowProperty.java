@@ -19,13 +19,15 @@ public class ShowProperty extends HttpServlet {
     public ShowProperty() {}
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+try {
         double maxLat = 35.0;
         double minLat = 30.0;
         double maxLon = 0.0;
         double minLon = -100.0;
 
-        //response.setContentType("text/html");
-        //PrintWriter out = response.getWriter();
+
 
         final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
 
@@ -44,7 +46,12 @@ public class ShowProperty extends HttpServlet {
         List<Double> lat = new ArrayList<Double>();
         List<Double> lon = new ArrayList<Double>();
 
-        ScanResult result = ddb.scan(scanRequest);
+        //try {
+            ScanResult result = ddb.scan(scanRequest);
+        //} catch (Exception e) {
+            //out.println(e);
+            //return;
+        //}
         for (Map<String, AttributeValue> item : result.getItems()) {
             lat.add(Double.parseDouble(item.get("Latitude").getN()));
             lon.add(Double.parseDouble(item.get("Longitude").getN()));
@@ -56,6 +63,10 @@ public class ShowProperty extends HttpServlet {
         String nextJSP = "/WEB-INF/showProperty.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(request,response);
+    } catch (Exception e) {
+        out.println(e);
+        return;
+    }
     }
 
     public static void main(String args[]) throws ServletException, IOException {
