@@ -2,7 +2,7 @@ import java.time.LocalDate;
 
 public class Crime {
     private CrimeType crimeType;
-    private int reportNumber;
+    private long reportNumber;
     private LocalDate reportDate;
     private String address;
     private String city;
@@ -10,7 +10,7 @@ public class Crime {
     private double latitude;
     private double longitude;
 
-    public Crime(CrimeType crimeType, int reportNumber, LocalDate reportDate,
+    public Crime(CrimeType crimeType, long reportNumber, LocalDate reportDate,
         String address, String city, String neighborhood, double latitude,
         double longitude) {
         this.crimeType = crimeType;
@@ -27,7 +27,7 @@ public class Crime {
         return this.crimeType;
     }
 
-    public int getReportNumber() {
+    public long getReportNumber() {
         return this.reportNumber;
     }
 
@@ -54,4 +54,14 @@ public class Crime {
     public double getLongitude() {
         return this.longitude;
     }
+
+    // @Override
+    // public String toString() {
+    //     return "CrimeType: " + crimeType
+    //         + "Report Number: " + reportNumber
+    //         + "Report Date: " + reportDate
+    //         + "Address: " + address + city;
+    //         + "Neighborhood: "
+    //
+    // }
 }

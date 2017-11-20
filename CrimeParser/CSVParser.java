@@ -16,7 +16,7 @@ public final class CSVParser {
         try {
             String[] data = line.split(",");
             CrimeType crimeType = CrimeType.getCrimeTypeFromKey(data[0]);
-            int reportNumber = Integer.parseInt(data[1]);
+            long reportNumber = Long.parseLong(data[1].replaceFirst("^0+(?!$)", ""));
             //SimpleDateFormat dateFormat = new SimpleDateFormat("m/d/y");
             LocalDate date = LocalDate.parse(data[2], DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.US));
             String address = data[3];
