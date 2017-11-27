@@ -66,7 +66,7 @@ public class ShowProperty extends HttpServlet {
                 return;
             }
 
-            final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
+            /*final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
 
             Map<String, AttributeValue> expressionAttributeValues = new HashMap<String, AttributeValue>();
             expressionAttributeValues.put(":maxLat", new AttributeValue().withN(Double.toString(maxLat)));
@@ -103,7 +103,7 @@ public class ShowProperty extends HttpServlet {
 
 
             request.setAttribute("lat", lat);
-            request.setAttribute("lon", lon);
+            request.setAttribute("lon", lon);*/
             String nextJSP = "/WEB-INF/showProperty.jsp";
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
             dispatcher.forward(request,response);
