@@ -15,15 +15,14 @@ import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
-@WebServlet("/ShowProperty")
-public class ShowProperty extends HttpServlet {
+public class test extends HttpServlet {
 
     public static String CRIME_TABLE_NAME = "CrimeReports";
 
-    public ShowProperty() {}
+    public test() {}
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
+/*        response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         try {
             boolean didSetAddress = false;
@@ -41,14 +40,14 @@ public class ShowProperty extends HttpServlet {
             if (!didSetAddress) {
                 throw new IllegalArgumentException("Must specify an address to view this page.");
             }
-
+*/
             double maxLat = 40.0;
             double minLat = 25.0;
             double maxLon = 0.0;
             double minLon = -100.0;
 
             // Now make request to zillow API
-            URL url = new URL("https://www.zillow.com/webservice/GetSearchResults.htm?zws-id=X1-ZWz1fz9n2j2ya3_8i7yl&citystatezip=Atlanta%2C%20GA&" + request.getQueryString());
+  /*          URL url = new URL("https://www.zillow.com/webservice/GetSearchResults.htm?zws-id=X1-ZWz1fz9n2j2ya3_8i7yl&citystatezip=Atlanta%2C%20GA&" + request.getQueryString());
             InputStream stream = url.openStream();
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -65,7 +64,7 @@ public class ShowProperty extends HttpServlet {
                 out.println("Address provided was invalid.");
                 return;
             }
-
+*/
             final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
 
             Map<String, AttributeValue> expressionAttributeValues = new HashMap<String, AttributeValue>();
@@ -87,8 +86,9 @@ public class ShowProperty extends HttpServlet {
             while (hasMore) {
                 ScanResult result = ddb.scan(scanRequest);
                 for (Map<String, AttributeValue> item : result.getItems()) {
-                    lat.add(Double.parseDouble(item.get("Latitude").getN()));
-                    lon.add(Double.parseDouble(item.get("Longitude").getN()));
+                    Double latA = Double.parseDouble(item.get("Latitude").getN());
+                    Double lonA = Double.parseDouble(item.get("Longitude").getN());
+                    System.out.println("new google.maps.LatLng(" + latA + ", " + lonA + "), ");
                 }
                 if (result.getLastEvaluatedKey() != null) {
                     hasMore = result.getLastEvaluatedKey().isEmpty() == false;
@@ -102,7 +102,7 @@ public class ShowProperty extends HttpServlet {
 
 
 
-            request.setAttribute("lat", lat);
+            /*request.setAttribute("lat", lat);
             request.setAttribute("lon", lon);
             String nextJSP = "/WEB-INF/showProperty.jsp";
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
@@ -110,10 +110,10 @@ public class ShowProperty extends HttpServlet {
         } catch (Exception e) {
             out.println(e);
             return;
-        }
+        }*/
     }
 
     public static void main(String args[]) throws ServletException, IOException {
-        new ShowProperty().doGet(null, null);
+        new test().doGet(null, null);
     }
 }
