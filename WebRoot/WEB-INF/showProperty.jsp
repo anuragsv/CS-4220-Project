@@ -101,14 +101,7 @@
       // Heatmap data: 500 Points
       function getPoints() {
         return [
-          <%
-            /*List<Double> lat = (List<Double>)request.getAttribute("lat");
-            List<Double> lon = (List<Double>)request.getAttribute("lon");
-            for (int i = 0; i < lat.size() - 1; i++) {
-                out.println("new google.maps.LatLng(" + lat.get(i) + ", " + lon.get(i) + "),");
-            }
-            out.println("new google.maps.LatLng(" + lat.get(lat.size() - 1) + ", " + lon.get(lat.size() - 1) + ")");*/
-          %>
+            
         ];
       }
     </script>
